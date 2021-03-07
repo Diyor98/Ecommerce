@@ -49,7 +49,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 		})
 
 		const {
-			useLogin: { userInfo },
+			userLogin: { userInfo },
 		} = getState()
 
 		const config = {
