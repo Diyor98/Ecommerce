@@ -16,7 +16,11 @@ const UserListScreen = ({ history }) => {
 	const { userInfo } = userLogin
 
 	const userDelete = useSelector((state) => state.userDelete)
-	const { success: successDelete } = userDelete
+	const {
+		loading: loadingDelete,
+		error: errorDelete,
+		success: successDelete,
+	} = userDelete
 
 	useEffect(() => {
 		if (userInfo && userInfo.isAdmin) {
@@ -24,7 +28,7 @@ const UserListScreen = ({ history }) => {
 		} else {
 			history.push('/login')
 		}
-	}, [dispatch, history, userInfo, userDelete])
+	}, [dispatch, history, userInfo, userDelete, successDelete])
 
 	const deleteHandler = (id) => {
 		if (window.confirm('Are you sure?')) {
@@ -35,6 +39,8 @@ const UserListScreen = ({ history }) => {
 	return (
 		<>
 			<h1>Users</h1>
+			{loadingDelete && <Loader />}
+			{errorDelete && <Message variant='danger'>{errorDelete}</Message>}
 			{loading ? (
 				<Loader />
 			) : error ? (
